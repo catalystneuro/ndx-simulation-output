@@ -7,6 +7,9 @@ namespaces:
   schema:
   - namespace: core
     neurodata_types:
-    - ElectricalSeries
+    - TimeSeries
+    - VectorData
+    - VectorIndex
+    - DynamicTable
   - source: ndx-simulation-output.extensions.yaml
   version: 0.1.0

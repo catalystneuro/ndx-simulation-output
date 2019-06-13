@@ -1,8 +1,41 @@
 groups:
-- neurodata_type_def: TetrodeSeries
-  neurodata_type_inc: ElectricalSeries
-  doc: A custom ElectricalSeries for my lab
-  attributes:
-  - name: trode_id
+- neurodata_type_def: Compartments
+  neurodata_type_inc: DynamicTable
+  doc: table that holds information about what places are being recorded
+  datasets:
+  - neurodata_type_inc: VectorData
+    name: number
     dtype: int
-    doc: the tetrode id
+    doc: cell compartment ids corresponding to a each column in the data
+  - neurodata_type_inc: VectorIndex
+    name: number_index
+    doc: maps cell to compartments
+    quantity: '?'
+  - neurodata_type_inc: VectorData
+    name: position
+    dtype: float
+    doc: position of recording within a compartment. 0 is close to soma, 1 is other
+      end
+    quantity: '?'
+  - neurodata_type_inc: VectorIndex
+    name: position_index
+    doc: indexes position
+    quantity: '?'
+  - neurodata_type_inc: VectorData
+    name: label
+    dtype: text
+    doc: labels for compartments
+    quantity: '?'
+  - neurodata_type_inc: VectorIndex
+    name: label_index
+    doc: indexes label
+    quantity: '?'
+  default_name: compartments
+- neurodata_type_def: CompartmentSeries
+  neurodata_type_inc: TimeSeries
+  doc: Stores continuous data from cell compartments
+  links:
+  - name: compartments
+    doc: meta-data about compartments in this CompartmentSeries
+    target_type: Compartments
+    quantity: '?'
