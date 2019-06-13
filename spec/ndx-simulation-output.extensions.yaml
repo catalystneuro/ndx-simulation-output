@@ -1,0 +1,8 @@
+groups:
+- neurodata_type_def: TetrodeSeries
+  neurodata_type_inc: ElectricalSeries
+  doc: A custom ElectricalSeries for my lab
+  attributes:
+  - name: trode_id
+    dtype: int
+    doc: the tetrode id

@@ -1,0 +1,12 @@
+namespaces:
+- author: Ben Dichter
+  contact: ben.dichter@gmail.com
+  doc: Holds structures for recording data from multiple compartments of multiple
+    neurons in a single TimeSeries
+  name: ndx-simulation-output
+  schema:
+  - namespace: core
+    neurodata_types:
+    - ElectricalSeries
+  - source: ndx-simulation-output.extensions.yaml
+  version: 0.1.0
