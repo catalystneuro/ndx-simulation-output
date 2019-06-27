@@ -5,13 +5,19 @@ from ndx_simulation_output import CompartmentSeries, Compartments, SimulationMet
 from tqdm import tqdm
 
 
-def sonata2nwb(sonata_fpath, save_path, description='description', id='id', **kwargs):
+def sonata2nwb(sonata_fpath, save_path, stub=False, description='description', id='id', **kwargs):
     """
 
     Parameters
     ----------
     sonata_fpath: str
     save_path: str
+    stub: bool
+        Only save a small amount of data to test reading of meta-data
+    description: str
+        NWBFile.description
+    id: str
+        NWBFile.id
     kwargs: fed into NWBFile
 
     Returns
@@ -20,9 +26,12 @@ def sonata2nwb(sonata_fpath, save_path, description='description', id='id', **kw
     """
     with File(sonata_fpath, 'r') as file:
         cortex = file['report/cortex']
-        data = cortex['data'][:]
+        if stub:
+            data = cortex['data'][:10]
+        else:
+            data = cortex['data'][:]
         mapping = cortex['mapping']
-        elem_ids = mapping['element_ids']
+        elem_ids = mapping['element_ids'][:]
         elem_pos = mapping['element_pos'][:]
         index_pointer = mapping['index_pointer'][:]
         node_ids = mapping['node_ids'][:]
