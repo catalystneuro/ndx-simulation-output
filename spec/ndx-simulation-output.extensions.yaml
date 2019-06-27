@@ -43,6 +43,11 @@ groups:
   neurodata_type_inc: LabMetaData
   default_name: simulation
   doc: group that holds metadata for simulation
+  attributes:
+  - name: help
+    dtype: text
+    value: container for simulation meta-data that goes in /general
+    doc: help
   groups:
   - neurodata_type_inc: Compartments
     default_name: compartments

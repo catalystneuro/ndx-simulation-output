@@ -43,6 +43,13 @@ with NWBHDF5IO('test_compartment_series.nwb', 'w') as io:
     io.write(nwbfile)
 ```
 
+conversion from SONTATA:
+```python
+from ndx_simulation_output.io import sonata2nwb
+
+sonata2nwb('sonata_fpath', 'save_path')
+```
+
 ### MATLAB
 #### installation
 
