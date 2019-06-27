@@ -7,7 +7,7 @@ def main():
     ns_builder = NWBNamespaceBuilder(doc='Holds structures for recording data from multiple compartments of multiple '
                                          'neurons in a single TimeSeries',
                                      name='ndx-simulation-output',
-                                     version='0.2.1',
+                                     version='0.2.2',
                                      author='Ben Dichter',
                                      contact='ben.dichter@gmail.com')
 
@@ -33,7 +33,7 @@ def main():
 
     SimulationMetaData = NWBGroupSpec(default_name='simulation', neurodata_type_def='SimulationMetaData',
                                       neurodata_type_inc='LabMetaData', doc='group that holds metadata for simulation')
-    SimulationMetaData.add_group(default_name='compartments', neurodata_type_inc='Compartments',
+    SimulationMetaData.add_group(name='compartments', neurodata_type_inc='Compartments',
                                  doc='table that holds information about what places are being recorded')
     SimulationMetaData.add_attribute(name='help', dtype='text', doc='help',
                                      value='container for simulation meta-data that goes in /general')

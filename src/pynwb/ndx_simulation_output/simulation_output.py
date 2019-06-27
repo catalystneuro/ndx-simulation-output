@@ -39,7 +39,7 @@ class Compartments(DynamicTable):
     )
 
     @docval({'name': 'name', 'type': str, 'doc': 'Name of this Compartments object',
-             'default': 'Compartments'},
+             'default': 'compartments'},
             {'name': 'id', 'type': ('array_data', ElementIdentifiers),
              'doc': 'the identifiers for the units stored in this interface', 'default': None},
             {'name': 'columns', 'type': (tuple, list), 'doc': 'the columns in this table', 'default': None},

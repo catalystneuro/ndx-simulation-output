@@ -53,5 +53,5 @@ def sonata2nwb(sonata_fpath, save_path, stub=False, description='description', i
         nwbfile.add_acquisition(cs)
         print('writing NWB file...', flush=True)
         with NWBHDF5IO(save_path, 'w') as io:
-            io.write(nwbfile)
+            io.write(nwbfile, cache_spec=True)
         print('done.')

@@ -49,6 +49,6 @@ groups:
     value: container for simulation meta-data that goes in /general
     doc: help
   groups:
-  - neurodata_type_inc: Compartments
-    default_name: compartments
+  - name: compartments
+    neurodata_type_inc: Compartments
     doc: table that holds information about what places are being recorded
