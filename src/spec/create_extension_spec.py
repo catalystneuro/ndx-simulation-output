@@ -2,7 +2,6 @@
 from pynwb.spec import (
     NWBNamespaceBuilder,
     NWBGroupSpec,
-    NWBAttributeSpec,
     NWBDatasetSpec,
     NWBLinkSpec
 )
@@ -10,9 +9,10 @@ from export_spec import export_spec
 
 
 def main():
-    ns_builder = NWBNamespaceBuilder(doc='Holds structures for recording data from multiple compartments of multiple neurons in a single TimeSeries',
+    ns_builder = NWBNamespaceBuilder(doc='Holds structures for recording data from multiple compartments of multiple '
+                                         'neurons in a single TimeSeries',
                                      name='ndx-simulation-output',
-                                     version='0.1.0',
+                                     version='0.2.0',
                                      author='Ben Dichter',
                                      contact='ben.dichter@gmail.com')
 
@@ -50,6 +50,7 @@ def main():
                            quantity='?')
         ]
     )
+
     CompartmentsSeries = NWBGroupSpec(
         neurodata_type_def='CompartmentSeries',
         neurodata_type_inc='TimeSeries',
@@ -62,11 +63,22 @@ def main():
         ]
     )
 
+    SimulationMetaData = NWBGroupSpec(
+        default_name='simulation',
+        neurodata_type_def='SimulationMetaData',
+        neurodata_type_inc='LabMetaData',
+        doc='group that holds metadata for simulation',
+        groups=[
+            NWBGroupSpec(
+                default_name='compartments',
+                neurodata_type_inc='Compartments',
+                doc='table that holds information about what places are being recorded')])
+
     # TODO: add the new data types to this list
-    new_data_types = [Compartments, CompartmentsSeries]
+    new_data_types = [Compartments, CompartmentsSeries, SimulationMetaData]
 
     # TODO: include the types that are used and their namespaces (where to find them)
-    types_to_include = ['TimeSeries', 'VectorData', 'VectorIndex', 'DynamicTable']
+    types_to_include = ['TimeSeries', 'VectorData', 'VectorIndex', 'DynamicTable', 'LabMetaData']
     for ndtype in types_to_include:
         ns_builder.include_type(ndtype, namespace='core')
 
