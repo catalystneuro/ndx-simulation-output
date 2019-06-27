@@ -38,9 +38,6 @@ nwbfile.add_acquisition(cs)
 
 with NWBHDF5IO('test_compartment_series.nwb', 'w') as io:
     io.write(nwbfile)
-
-with NWBHDF5IO('test_compartment_series.nwb', 'w') as io:
-    io.write(nwbfile)
 ```
 
 conversion from SONTATA:
