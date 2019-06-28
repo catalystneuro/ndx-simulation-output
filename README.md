@@ -89,7 +89,7 @@ membrane_potential = types.ndx_simulation_output.CompartmentSeries( ...
     
 simulation = types.ndx_simulation_output.SimulationMetaData('compartments', compartments);
     
-nwb.general.set('simulation') = simulation
+nwb.general.set('simulation', simulation);
 
 nwb.acquisition.set('membrane_potential', membrane_potential);
 ```
