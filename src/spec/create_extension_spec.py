@@ -31,7 +31,7 @@ def main():
     CompartmentsSeries.add_link(name='compartments', target_type='Compartments', quantity='?',
                                 doc='meta-data about compartments in this CompartmentSeries')
 
-    SimulationMetaData = NWBGroupSpec(default_name='simulation', neurodata_type_def='SimulationMetaData',
+    SimulationMetaData = NWBGroupSpec(name='simulation', neurodata_type_def='SimulationMetaData',
                                       neurodata_type_inc='LabMetaData', doc='group that holds metadata for simulation')
     SimulationMetaData.add_group(name='compartments', neurodata_type_inc='Compartments',
                                  doc='table that holds information about what places are being recorded')

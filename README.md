@@ -29,10 +29,9 @@ compartments.add_row(number=[0], position=[np.nan])
 
 nwbfile = NWBFile('description', 'id', datetime.now().astimezone())
 
-nwbfile.add_lab_meta_data(SimulationMetaData(name='simulation', compartments=compartments))
+nwbfile.add_lab_meta_data(SimulationMetaData(compartments=compartments))
 cs = CompartmentSeries('membrane_potential', np.random.randn(10, 6),
-                       compartments=compartments,
-                       unit='V', rate=100.)
+                       compartments=compartments, unit='V', rate=100.)
 nwbfile.add_acquisition(cs)
 
 with NWBHDF5IO('test_compartment_series.nwb', 'w') as io:

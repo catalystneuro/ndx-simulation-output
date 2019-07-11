@@ -41,7 +41,7 @@ groups:
     quantity: '?'
 - neurodata_type_def: SimulationMetaData
   neurodata_type_inc: LabMetaData
-  default_name: simulation
+  name: simulation
   doc: group that holds metadata for simulation
   attributes:
   - name: help
