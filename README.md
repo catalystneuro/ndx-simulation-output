@@ -12,7 +12,7 @@ This extension defines two NWB neuorodata_types, `CompartmentSeries` and `Compar
 ### python
 #### installation
 ```
-pip install git+https://github.com/bendichter/ndx-simulation-output.git
+pip install ndx-simulation-output
 ```
 
 #### usage
