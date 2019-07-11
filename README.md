@@ -3,7 +3,7 @@
 ## An extension for output data of large-scale simulations
  Developed in collaboration between the Soltesz lab and the Allen Institute during [NWB Hackathon #4](https://github.com/NeurodataWithoutBorders/nwb_hackathons/tree/master/HCK04_2018_Seattle/Projects/NetworkOutput) by Ben Dichter*, Kael Dai*, Aaron Milstein, Yazan Billeh, Andrew Tritt, Jean-Christophe Fillion-Robin, Anton Akhipov, Oliver Ruebel, Nicholas Cain, Kristofer Bouchard, and Ivan Soltesz
 
-This extension defines two NWB neuorodata_types, `CompartmentSeries` and `Compartments`. `CompartmentSeries` stores continuous data (e.g. membrane potential, calcium concentration) from many compartments of many cells, and scales to hundreds of thousands of compartments. `Compartments` stores the meta-data associated with those compartments.
+This extension defines two NWB neuorodata_types, `CompartmentSeries` and `Compartments`. `CompartmentSeries` stores continuous data (e.g. membrane potential, calcium concentration) from many compartments of many cells, and scales to hundreds of thousands of compartments. `Compartments` stores the meta-data associated with those compartments, and is stored in `SimulationMetaData`.
 
 ![Image of CompartmentSeries](multicompartment_schema_1.png)
 
