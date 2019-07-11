@@ -7,7 +7,7 @@ from shutil import copy2
 
 setup_args = {
     'name': 'ndx-simulation-output',
-    'version': '0.2.2',
+    'version': '0.2.3',
     'description': 'Holds structures for recording data from multiple compartments of multiple neurons in a single '
                    'TimeSeries',
     'author': 'Ben Dichter',
