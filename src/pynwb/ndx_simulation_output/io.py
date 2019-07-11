@@ -12,21 +12,25 @@ from pynwb.ecephys import ElectricalSeries
 from tqdm import tqdm
 
 
-def add_membrane_potential(nwbfile, data_dir, stub=False):
+def add_continuous_compartments(nwbfile, data_fpath, name='membrane_potential',
+                                unit='mV', stub=False):
     """
 
     Parameters
     ----------
     nwbfile: pynwb.NWBFile
-    data_dir: str
+    data_fpath: str
+    name: str
+        name that will be used for the saved data object
+    unit:
+        unit of measurement for the
     stub: bool
 
     Returns
     -------
     pynwb.NWBFile
     """
-    membrane_fpath = os.path.join(data_dir, 'membrane_potential.h5')
-    with File(membrane_fpath, 'r') as file:
+    with File(data_fpath, 'r') as file:
         cortex = file['report/cortex']
         if stub:
             data = cortex['data'][:10]
@@ -45,65 +49,61 @@ def add_membrane_potential(nwbfile, data_dir, stub=False):
         for i_start, i_stop, node_id in tqdm(zip(index_pointer,
                                                  index_pointer[1:], node_ids),
                                              total=len(node_ids),
-                                             desc='setting up NWBFile'):
+                                             desc='reading continuous data'):
             compartments.add_row(id=int(node_id),
                                  number=elem_ids[i_start:i_stop].astype('int'),
                                  position=elem_pos[i_start:i_stop])
 
-        cs = CompartmentSeries('membrane_potential', data,
+        cs = CompartmentSeries(name, data,
                                compartments=compartments,
-                               unit='mV', rate=1 / timestep * 1000)
+                               unit=unit, rate=1 / timestep * 1000)
 
         nwbfile.add_acquisition(cs)
 
         return nwbfile
 
 
-def add_spikes(nwbfile, data_dir):
+def add_spikes(nwbfile, spikes_fpath):
     """
 
     Parameters
     ----------
     nwbfile: NWBFile
-    data_dir: str
+    spikes_fpath: str
 
     Returns
     -------
     pynwb.NWBFile
 
     """
-    spikes_fpath = os.path.join(data_dir, 'spikes.h5')
     with File(spikes_fpath, 'r') as file:
         node_ids = file['spikes/internal/node_ids'][:]
         timestamps = file['spikes/internal/timestamps'][:]
 
     for i in tqdm(np.unique(node_ids), desc='reading units'):
-        nwbfile.add_unit(spike_times=timestamps[node_ids == i])
+        nwbfile.add_unit(spike_times=timestamps[node_ids == i], id=i)
 
     return nwbfile
 
 
-def add_electrodes(nwbfile, data_dir):
+def add_electrodes(nwbfile, electrode_positions_file, electrodes_data_file):
     """
 
     Parameters
     ----------
     nwbfile: pynwb.NWBFile
-    data_dir: str
+    electrode_positions_file: str
+    electrodes_data_file: str
 
     Returns
     -------
-
     pnwb.NWBFile
 
     """
-    electrode_pos_path = glob(os.path.join(data_dir,
-                                           'electrodes*.csv'))[0]
-    ecp_fpath = os.path.join(data_dir, 'ecp.h5')
 
-    electrodes_df = pd.read_csv(electrode_pos_path, sep=' ')
+    electrodes_df = pd.read_csv(electrode_positions_file, sep=' ')
 
-    with File(ecp_fpath, 'r') as file:
+    with File(electrodes_data_file, 'r') as file:
         electrode_ids = file['ecp/channel_id'][:]
         data = file['ecp/data'][:]
         start, stop, timestep = file['ecp/time'][:]
@@ -122,10 +122,8 @@ def add_electrodes(nwbfile, data_dir):
     electrodes = nwbfile.create_electrode_table_region(match_electrodes, 'all electrodes')
 
     nwbfile.add_acquisition(
-        ElectricalSeries('ElectricalSeries', data,
-                         starting_time=start,
-                         rate=1 / timestep * 1000,
-                         electrodes=electrodes))
+        ElectricalSeries('ElectricalSeries', data, starting_time=start,
+                         rate=1 / timestep * 1000, electrodes=electrodes))
     return nwbfile
 
 
@@ -148,9 +146,15 @@ def sonata2nwb(data_dir, save_path, stub=False, description='description',
     """
     nwbfile = NWBFile(description, identifier, datetime.now().astimezone(), **kwargs)
 
-    nwbfile = add_membrane_potential(nwbfile, data_dir, stub=stub)
-    nwbfile = add_spikes(nwbfile, data_dir)
-    nwbfile = add_electrodes(nwbfile, data_dir)
+    membrane_fpath = os.path.join(data_dir, 'membrane_potential.h5')
+    nwbfile = add_continuous_compartments(nwbfile, membrane_fpath, stub=stub)
+
+    spikes_fpath = os.path.join(data_dir, 'spikes.h5')
+    nwbfile = add_spikes(nwbfile, spikes_fpath)
+
+    electrode_pos_path = glob(os.path.join(data_dir, 'electrodes*.csv'))[0]
+    ecp_fpath = os.path.join(data_dir, 'ecp.h5')
+    nwbfile = add_electrodes(nwbfile, electrode_pos_path, ecp_fpath)
 
     print('writing NWB file...', flush=True)
     with NWBHDF5IO(save_path, 'w') as io:
