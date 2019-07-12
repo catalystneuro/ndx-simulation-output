@@ -81,7 +81,7 @@ def add_spikes(nwbfile, spikes_fpath):
         timestamps = file['spikes/internal/timestamps'][:]
 
     for i in tqdm(np.unique(node_ids), desc='reading units'):
-        nwbfile.add_unit(spike_times=timestamps[node_ids == i], id=i)
+        nwbfile.add_unit(spike_times=timestamps[node_ids == i], id=int(i))
 
     return nwbfile
 
