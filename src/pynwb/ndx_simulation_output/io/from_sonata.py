@@ -122,28 +122,32 @@ def add_electrodes(nwbfile, electrode_positions_file, electrodes_data_file):
     electrodes = nwbfile.create_electrode_table_region(match_electrodes, 'all electrodes')
 
     nwbfile.add_acquisition(
-        ElectricalSeries('ElectricalSeries', data, starting_time=start,
+        ElectricalSeries('ElectricalSeries', data / 1000, starting_time=start,
                          rate=1 / timestep * 1000, electrodes=electrodes))
     return nwbfile
 
 
-def sonata2nwb(data_dir, save_path, stub=False, description='description',
+def sonata2nwb(data_dir, save_path=None, stub=False, description='description',
                identifier='id', **kwargs):
-    """
+    """Example of a conversion from sonata to NWB
 
     Parameters
     ----------
     data_dir: str
-    save_path: str
-    stub: bool
+    save_path: str, optional
+    stub: bool, optional
         Only save a small amount of data to test reading of meta-data
-    description: str
+    description: str, optional
         NWBFile.description
-    identifier: str
+    identifier: str, optional
         NWBFile.id
     kwargs: fed into NWBFile
 
     """
+
+    if save_path is None:
+        save_path = data_dir + '.nwb'
+
     nwbfile = NWBFile(description, identifier, datetime.now().astimezone(), **kwargs)
 
     membrane_fpath = os.path.join(data_dir, 'membrane_potential.h5')
