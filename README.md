@@ -40,8 +40,11 @@ with NWBHDF5IO('test_compartment_series.nwb', 'w') as io:
 
 conversion from SONTATA:
 ```python
-from ndx_simulation_output.io import sonata2nwb
-sonata2nwb('path_to_data_dir', 'save_path')
+from ndx_simulation_output.io.from_sonata import sonata2nwb
+sonata2nwb('path_to_data_dir', 'nwb_path')
+
+from ndx_simulation_output.io.to_sonata import nwb2sonata
+nwb2sonata('nwb_path', 'data_dir2')
 ```
 
 ### MATLAB

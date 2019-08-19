@@ -83,25 +83,19 @@ def add_electrodes(nwbfile, electrode_positions_file, electrodes_data_file):
     return nwbfile
 
 
-def sonata2nwb(data_path, save_path, electrodes_file=None, stub=False, description='description',
+def sonata2nwb(data_path, save_path=None, electrodes_file=None, stub=False, description='description',
                identifier='id', population=None, compartment_report_name=None, **kwargs):
-    """
+    """Example of a conversion from sonata to NWB
 
     Parameters
     ----------
-    data_path: list, str
-        The path of the sonata file(s) to convert to nwb. If the path is to a directory then the function will attempt
-        to find and convert all sonata files within the directory.
-    save_path: str
-        Path to the NWB file to save converted data.
-    electrodes_file: str
-        Path to the location of the electrodes csv containing locations of all the channels in the electrodes, required
-        for converting /ecp into EletricalSeries table.
-    stub: bool
+    data_dir: str
+    save_path: str, optional
+    stub: bool, optional
         Only save a small amount of data to test reading of meta-data
-    description: str
+    description: str, optional
         NWBFile.description
-    identifier: str
+    identifier: str, optional
         NWBFile.id
     population: str
         Name of the sonata node-population to convert. If not specified or set to None will try to guess the correct
@@ -111,7 +105,13 @@ def sonata2nwb(data_path, save_path, electrodes_file=None, stub=False, descripti
     kwargs: fed into NWBFile
 
     """
-    # Get the sonata file(s)
+
+    if save_path is None:
+        # TODO: Make this more robust
+        save_path = data_path + '.nwb'
+
+    # Create a list of the sonata file(s) passed in by the user, based of if data_path parameter is a single file, list
+    # of files, or a directory containing multiple files.
     nwbfile = NWBFile(description, identifier, datetime.now().astimezone(), **kwargs)
     if isinstance(data_path, (list, tuple)):
         sonata_files = data_path
@@ -125,8 +125,7 @@ def sonata2nwb(data_path, save_path, electrodes_file=None, stub=False, descripti
             raise Exception('Unable to find any hdf5/sonata files in the {} path. Please specify files to convert directly.'.format(data_path))
 
     else:
-        # TODO: Find a better exception
-        raise Exception('Unable to read data_path {}. Please specify a directory '.format(data_path))
+        raise TypeError('Unable to read data_path {}. Please specify a directory '.format(data_path))
 
     if electrodes_file is None:
         # See if there exists an electrodes.csv file containg channel positions
@@ -136,6 +135,7 @@ def sonata2nwb(data_path, save_path, electrodes_file=None, stub=False, descripti
             electrodes_file = csv_files[0]
 
     for file_name in sonata_files:
+        # Parse each sonata file checking to see what type or report(s) are contained within each.
         with h5py.File(file_name, 'r') as h5:
             pop, report_grp, spikes_grp, ecp_grp = __parse_h5_tree(h5, file_name, population)
             if report_grp:
