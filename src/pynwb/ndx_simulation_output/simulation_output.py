@@ -3,7 +3,7 @@ from pynwb import register_class, docval, get_class
 from hdmf.common.table import VectorIndex, VectorData, DynamicTable, ElementIdentifiers
 from hdmf.utils import call_docval_func
 
-name = 'ndx-simulation-output'
+namespace = 'ndx-simulation-output'
 
 
 def create_ragged_array(name, values):
@@ -19,7 +19,7 @@ def create_ragged_array(name, values):
     return vector_data, vector_index
 
 
-@register_class('Compartments', name)
+@register_class('Compartments', namespace)
 class Compartments(DynamicTable):
     __columns__ = (
         {'name': 'number', 'index': True,
@@ -87,8 +87,8 @@ def find_compartments(self, cell, compartment_numbers=None, compartment_labels=N
         return np.arange(start_ind, start_ind + len(cell_compartments), dtype=int)
 
 
-CompartmentSeries = get_class('CompartmentSeries', name)
+CompartmentSeries = get_class('CompartmentSeries', namespace)
 CompartmentSeries._compartment_finder = _compartment_finder
 CompartmentSeries.find_compartments = find_compartments
 
-SimulationMetaData = get_class('SimulationMetaData', name)
+SimulationMetaData = get_class('SimulationMetaData', namespace)
