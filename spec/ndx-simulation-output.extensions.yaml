@@ -2,30 +2,30 @@ groups:
 - neurodata_type_def: Compartments
   neurodata_type_inc: DynamicTable
   default_name: compartments
-  doc: table that holds information about what places are being recorded
+  doc: Table that holds information about what places are being recorded.
   datasets:
   - name: number
     neurodata_type_inc: VectorData
     dtype: int
-    doc: cell compartment ids corresponding to a each column in the data
+    doc: Cell compartment ids corresponding to a each column in the data.
   - name: number_index
     neurodata_type_inc: VectorIndex
-    doc: maps cell to compartments
+    doc: Index that maps cell to compartments.
     quantity: '?'
   - name: position
     neurodata_type_inc: VectorData
     dtype: float
-    doc: position of recording within a compartment. 0 is close to soma, 1 is other
-      end
+    doc: Position of recording within a compartment. 0 is close to soma, 1 is other
+      end.
     quantity: '?'
   - name: position_index
     neurodata_type_inc: VectorIndex
-    doc: indexes position
+    doc: Index for position.
     quantity: '?'
   - name: label
     neurodata_type_inc: VectorData
     dtype: text
-    doc: labels for compartments
+    doc: Labels for compartments.
     quantity: '?'
   - name: label_index
     neurodata_type_inc: VectorIndex
@@ -37,18 +37,13 @@ groups:
   links:
   - name: compartments
     target_type: Compartments
-    doc: meta-data about compartments in this CompartmentSeries
+    doc: Metadata about compartments in this CompartmentSeries.
     quantity: '?'
 - neurodata_type_def: SimulationMetaData
   neurodata_type_inc: LabMetaData
   name: simulation
-  doc: group that holds metadata for simulation
-  attributes:
-  - name: help
-    dtype: text
-    value: container for simulation meta-data that goes in /general
-    doc: help
+  doc: Group that holds metadata for simulations.
   groups:
   - name: compartments
     neurodata_type_inc: Compartments
-    doc: table that holds information about what places are being recorded
+    doc: Table that holds information about what places are being recorded.

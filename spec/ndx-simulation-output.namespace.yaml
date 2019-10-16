@@ -1,8 +1,8 @@
 namespaces:
 - author: Ben Dichter
   contact: ben.dichter@gmail.com
-  doc: Holds structures for recording data from multiple compartments of multiple
-    neurons in a single TimeSeries
+  doc: Data types for recording data from multiple compartments of multiple neurons
+    in a single TimeSeries.
   name: ndx-simulation-output
   schema:
   - namespace: core
@@ -13,4 +13,4 @@ namespaces:
     - DynamicTable
     - LabMetaData
   - source: ndx-simulation-output.extensions.yaml
-  version: 0.2.2
+  version: 0.2.5
