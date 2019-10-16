@@ -1,17 +1,9 @@
-import os
-
 import numpy as np
 from pynwb import register_class, docval, get_class
-from pynwb.core import VectorIndex, VectorData, DynamicTable, ElementIdentifiers
+from hdmf.common.core import VectorIndex, VectorData, DynamicTable, ElementIdentifiers
 from hdmf.utils import call_docval_func
-from pynwb import load_namespaces
 
 name = 'ndx-simulation-output'
-
-here = os.path.abspath(os.path.dirname(__file__))
-ns_path = os.path.join(here, 'spec', name + '.namespace.yaml')
-
-load_namespaces(ns_path)
 
 
 def create_ragged_array(name, values):
