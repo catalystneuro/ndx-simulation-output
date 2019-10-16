@@ -13,4 +13,4 @@ namespaces:
     - DynamicTable
     - LabMetaData
   - source: ndx-simulation-output.extensions.yaml
-  version: 0.2.5
+  version: 0.2.6

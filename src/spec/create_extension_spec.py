@@ -10,7 +10,7 @@ def main():
     ns_builder = NWBNamespaceBuilder(doc='Data types for recording data from multiple compartments of multiple '
                                          'neurons in a single TimeSeries.',
                                      name='ndx-simulation-output',
-                                     version='0.2.5',
+                                     version='0.2.6',
                                      author='Ben Dichter',
                                      contact='ben.dichter@gmail.com')
 
