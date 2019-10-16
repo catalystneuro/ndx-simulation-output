@@ -1,15 +1,22 @@
+# -*- coding: utf-8 -*-
 
-from pynwb.spec import NWBNamespaceBuilder, NWBGroupSpec
-from export_spec import export_spec
+import os.path
+
+from pynwb.spec import NWBNamespaceBuilder, export_spec, NWBGroupSpec
 
 
 def main():
+    # these arguments were auto-generated from your cookiecutter inputs
     ns_builder = NWBNamespaceBuilder(doc='Holds structures for recording data from multiple compartments of multiple '
                                          'neurons in a single TimeSeries',
                                      name='ndx-simulation-output',
-                                     version='0.2.2',
+                                     version='0.2.5',
                                      author='Ben Dichter',
                                      contact='ben.dichter@gmail.com')
+
+    types_to_include = ['TimeSeries', 'VectorData', 'VectorIndex', 'DynamicTable', 'LabMetaData']
+    for ndtype in types_to_include:
+        ns_builder.include_type(ndtype, namespace='core')
 
     Compartments = NWBGroupSpec(default_name='compartments', neurodata_type_def='Compartments',
                                 neurodata_type_inc='DynamicTable',
@@ -40,11 +47,9 @@ def main():
 
     new_data_types = [Compartments, CompartmentsSeries, SimulationMetaData]
 
-    types_to_include = ['TimeSeries', 'VectorData', 'VectorIndex', 'DynamicTable', 'LabMetaData']
-    for ndtype in types_to_include:
-        ns_builder.include_type(ndtype, namespace='core')
-
-    export_spec(ns_builder, new_data_types)
+    # export the spec to yaml files in the spec folder
+    output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'spec'))
+    export_spec(ns_builder, new_data_types, output_dir)
 
 
 if __name__ == "__main__":

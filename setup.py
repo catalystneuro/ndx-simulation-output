@@ -15,7 +15,7 @@ setup_args = {
     'url': '',
     'license': '',
     'install_requires': [
-        'pynwb', 'tqdm'
+        'pynwb>=1.1.2', 'tqdm'
     ],
     'packages': find_packages('src/pynwb'),
     'package_dir': {'': 'src/pynwb'},
