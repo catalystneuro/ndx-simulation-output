@@ -1,6 +1,6 @@
 import numpy as np
 from pynwb import register_class, docval, get_class
-from hdmf.common.core import VectorIndex, VectorData, DynamicTable, ElementIdentifiers
+from hdmf.common.table import VectorIndex, VectorData, DynamicTable, ElementIdentifiers
 from hdmf.utils import call_docval_func
 
 name = 'ndx-simulation-output'
