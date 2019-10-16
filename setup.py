@@ -7,7 +7,7 @@ from shutil import copy2
 
 setup_args = {
     'name': 'ndx-simulation-output',
-    'version': '0.2.5',
+    'version': '0.2.6',
     'description': 'Holds structures for recording data from multiple compartments of multiple neurons in a single '
                    'TimeSeries',
     'author': 'Ben Dichter',
@@ -15,7 +15,7 @@ setup_args = {
     'url': '',
     'license': '',
     'install_requires': [
-        'pynwb', 'tqdm'
+        'pynwb>=1.1.2', 'tqdm'
     ],
     'packages': find_packages('src/pynwb'),
     'package_dir': {'': 'src/pynwb'},
