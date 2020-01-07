@@ -37,11 +37,10 @@ class Compartments(DynamicTable):
             {'name': 'columns', 'type': (tuple, list), 'doc': 'the columns in this table', 'default': None},
             {'name': 'colnames', 'type': 'array_data', 'doc': 'the names of the columns in this table',
              'default': None},
-            {'name': 'description', 'type': str, 'doc': 'a description of what is in this table', 'default': None},
+            {'name': 'description', 'type': str, 'doc': 'a description of what is in this table',
+             'default': "Table that holds information about what places are being recorded."},
             )
     def __init__(self, **kwargs):
-        if kwargs.get('description', None) is None:
-            kwargs['description'] = "data on spiking units"
         call_docval_func(super(Compartments, self).__init__, kwargs)
 
 
