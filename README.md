@@ -1,9 +1,7 @@
 # ndx-simulation-output Extension for NWB:N
 
 ## An extension for output data of large-scale simulations
- Developed in collaboration between the Soltesz lab and the Allen Institute during [NWB Hackathon #4](https://github.com/NeurodataWithoutBorders/nwb_hackathons/tree/master/HCK04_2018_Seattle/Projects/NetworkOutput) by Ben Dichter*, Kael Dai*, Aaron Milstein, Yazan Billeh, Andrew Tritt, Jean-Christophe Fillion-Robin, Anton Akhipov, Oliver Ruebel, Nicholas Cain, Kristofer Bouchard, and Ivan Soltesz
-
-This extension defines two NWB neuorodata_types, `CompartmentSeries` and `Compartments`. `CompartmentSeries` stores continuous data (e.g. membrane potential, calcium concentration) from many compartments of many cells, and scales to hundreds of thousands of compartments. `Compartments` stores the meta-data associated with those compartments, and is stored in `SimulationMetaData`.
+This extension defines two NWB neuorodata_types, `CompartmentSeries` and `Compartments`. `CompartmentSeries` stores continuous data (e.g. membrane potential, calcium concentration) from many compartments of many cells, and scales to hundreds of thousands of compartments. `Compartments` stores the meta-data associated with those compartments, and is stored in `SimulationMetaData`. Collaboration with Stanford University and the Allen Institute. Funded by the Ripple U19.
 
 ![Image of CompartmentSeries](multicompartment_schema_1.png)
 
@@ -96,3 +94,6 @@ nwb.acquisition.set('membrane_potential', membrane_potential);
 
 ## Talks
 Ben Dichter*, Kael Dai*, Aaron Milstein, Yazan Billeh, Andrew Tritt, Jean-Christophe Fillion-Robin, Anton Akhipov, Oliver Ruebel, Nicholas Cain, Kristofer Bouchard, Ivan Soltesz. NWB extension for storing results of large-scale neural network simulations. NeuroInformatics. Montreal, Canada (2018). [video](https://www.youtube.com/watch?v=uuYQW0EE2GY).
+
+## Credits
+ Developed in collaboration between the Soltesz lab and the Allen Institute during [NWB Hackathon #4](https://github.com/NeurodataWithoutBorders/nwb_hackathons/tree/master/HCK04_2018_Seattle/Projects/NetworkOutput) by Ben Dichter*, Kael Dai*, Aaron Milstein, Yazan Billeh, Andrew Tritt, Jean-Christophe Fillion-Robin, Anton Akhipov, Oliver Ruebel, Nicholas Cain, Kristofer Bouchard, and Ivan Soltesz
