@@ -1,4 +1,4 @@
-# ndx-simulation-output Extension for NWB:N
+# ndx-simulation-output Extension for NWB
 
 ## An extension for output data of large-scale simulations
 This extension defines two NWB neuorodata_types, `CompartmentSeries` and `Compartments`. `CompartmentSeries` stores continuous data (e.g. membrane potential, calcium concentration) from many compartments of many cells, and scales to hundreds of thousands of compartments. `Compartments` stores the meta-data associated with those compartments, and is stored in `SimulationMetaData`. Collaboration with Stanford University and the Allen Institute. Funded by the Ripple U19.
